@@ -7,7 +7,10 @@ function team() {
 const [capturedPokemons, setCapturedPokemons] = useState([]);
 
 useEffect(() => {
+  // Fonction pour récupérer les Pokémon capturés
     const fetchStoredPokemons = async () => {
+
+      // Récupérer les Pokémon capturés depuis le stockage local
         const storedPokemons = JSON.parse(await AsyncStorage.getItem('capturedPokemons') || '[]');
         setCapturedPokemons(storedPokemons);
     };
@@ -15,8 +18,11 @@ useEffect(() => {
     fetchStoredPokemons();
 }, []);
 
+// Fonction pour relâcher un Pokémon
 const releasePokemon = (index: number) => {
     const newCapturedPokemons = [...capturedPokemons];
+    
+    // Supprimer le Pokémon à l'index donné
     newCapturedPokemons.splice(index, 1);
     setCapturedPokemons(newCapturedPokemons);
     AsyncStorage.setItem('capturedPokemons', JSON.stringify(newCapturedPokemons));
